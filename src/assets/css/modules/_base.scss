@@ -1,0 +1,116 @@
+/*! flex布局 */
+.flex {
+    display: flex;
+}
+
+.flex-content-c {
+    display: flex;
+    justify-content: center;
+}
+
+
+.flex-align-c {
+    display: flex;
+    align-items: center;
+}
+
+.flex-c {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+
+
+/**
+*文本居中
+*/
+.align-c {
+    text-align: center;
+    ;
+
+}
+
+
+/**
+*强制不换行
+*/
+.nowrap {
+    white-space: nowrap;
+
+}
+
+
+/**
+*webkit显示省略号
+*/
+.web-ellipsis {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/**
+*单行省略号
+*/
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+
+
+
+/*! @mixin代码块 */
+
+/**
+*左侧
+*第2个盒子宽度自适应
+*?右侧
+*/
+@mixin layout-row {
+    @extend .flex;
+    // flex-flow: nowrap;
+
+    &>div:nth-child(2) {
+        flex: 1;
+    }
+
+}
+
+/**
+*左侧
+*第1个盒子宽度自适应
+*?右侧
+*/
+@mixin layout-row-one {
+    @extend .flex;
+    // flex-flow: nowrap;
+
+    &>div:nth-child(1) {
+        flex: 1;
+    }
+
+}
+
+/**
+*头部
+*第2个盒子高度自适应
+*?尾部
+*/
+@mixin layout-column {
+    @include layout-row;
+    flex-flow: column;
+
+    &>div:nth-child(2) {
+        flex: 1;
+    }
+}

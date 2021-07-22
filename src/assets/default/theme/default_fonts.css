@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'default-fonts';
+	src: url('default.ttf');
+}
+
+.public_fonts{
+	font-family: 'default-fonts';
+}
