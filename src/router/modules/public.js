@@ -1,4 +1,5 @@
-import index from '@/view/index.vue'
+// import index from '@/views/index.vue'
+import index from '@/views/index'
 
 export default [{
     name: 'index',
@@ -37,7 +38,7 @@ export default [{
             path: '/:pathMatch(\\d+)',
             // alias:'',
             // redirect: '/',
-            component: () => import('../../view/test.vue'),
+            component: () => import('../../views/test1.vue'),
             props: true,
             meta: {}
         },
@@ -46,7 +47,7 @@ export default [{
             path: '/:pathMatch([^\\d]\\w)',
             // alias:'',
             // redirect: '/',
-            component: () => import('../../view/error/404.vue'),
+            component: () => import('../../views/test2'),
             props: true,
             meta: {}
         },

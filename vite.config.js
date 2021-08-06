@@ -1,21 +1,18 @@
 import {
-  defineConfig
+  defineConfig,
+  loadEnv /*config使用环境变量*/
 } from 'vite';
 import vue from '@vitejs/plugin-vue';
-// import styleImport from 'vite-plugin-style-import';
-// import viteCompression from 'vite-plugin-compression';
-
-const path = require('path');
-
-//config使用环境变量 
-import {
-  loadEnv
-} from 'vite';
-
+import vueJsx from '@vitejs/plugin-vue-jsx'
 //HTML 内容插入
 import {
   injectHtml
 } from 'vite-plugin-html';
+
+// import styleImport from 'vite-plugin-style-import';
+// import viteCompression from 'vite-plugin-compression';
+
+const path = require('path');
 
 export default async ({
   command,
@@ -86,6 +83,7 @@ export default async ({
     },
     plugins: [
       vue(),
+      vueJsx(),
       injectHtml({
         injectData: {
           title: env.VITE_APP_TITLE,

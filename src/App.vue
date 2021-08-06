@@ -1,5 +1,5 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
+  <img class="logo" alt="Vue logo" src="./assets/logo.svg" />
   <!-- <HelloWorld msg="Hello Vue 3 + Vite" /> -->
   <router-view />
 </template>
@@ -19,5 +19,9 @@
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.logo{
+  width:200px;
+  height:200px;
 }
 </style>

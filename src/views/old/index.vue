@@ -20,7 +20,7 @@ export default {
 };
 </script>
 <script setup>
-import HelloWorld from "@/components/HelloWorld.vue";
+import HelloWorld from "@/views/components/HelloWorld.vue";
 
 import {
   ref,
@@ -56,7 +56,7 @@ const router = useRouter();
 const route = useRoute();
 
 // router.addRoute([{ name: 'admin', path: '/admin', component: 'index' }])
-console.log(router.getRoutes());
+// console.log(router.getRoutes());
 console.log("useRoute", useRoute());
 console.log("useRouter", useRouter());
 console.log("useStore", useStore());
