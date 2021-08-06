@@ -1,4 +1,4 @@
-import index from '@/view/index.vue'
+import index from '@/views/index.vue'
 
 export default [{
     name: 'index',
@@ -17,8 +17,8 @@ export default [{
     // component: index,
     components: { //命名视图
         default: index,
-        // a:()=>import('../../view/test.vue'),
-        // b:()=>import('../../view/error/404.vue'),
+        // a:()=>import('../../views/test.vue'),
+        // b:()=>import('../../views/error/404.vue'),
     },
     // props:true, //布尔模式
     // props: { default: true, sidebar: false }, //命名视图
@@ -37,7 +37,7 @@ export default [{
             path: '/:pathMatch(\\d+)',
             // alias:'',
             // redirect: '/',
-            component: () => import('../../view/test.vue'),
+            component: () => import('../../views/test.vue'),
             props: true,
             meta: {}
         },
@@ -46,7 +46,7 @@ export default [{
             path: '/:pathMatch([^\\d]\\w)',
             // alias:'',
             // redirect: '/',
-            component: () => import('../../view/error/404.vue'),
+            component: () => import('../../components/error/404.vue'),
             props: true,
             meta: {}
         },
