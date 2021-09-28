@@ -1,10 +1,19 @@
-import { createApp } from 'vue'
-import App from './App'
+import { createApp } from "vue";
+import App from "./App";
 
 // import './registerServiceWorker'
-import router from './router'
-import store from './store'
+/* vue全家桶 */
+import router from "./router";
+import store from "./store";
 
-createApp(App).use(store).use(router).mount('#app')
+/* AntdUI*/
+import Antd from "ant-design-vue";
+import "ant-design-vue/dist/antd.css";
 
-console.log('env',import.meta.env);
+/* 代替reset.css*/
+import 'normalize.css'
+
+const app = createApp(App);
+app.use(Antd).use(store).use(router).mount("#app");
+
+console.log("env", import.meta.env);
