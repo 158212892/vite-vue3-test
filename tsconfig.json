@@ -27,7 +27,7 @@
     "example/**/*.ts",
     "example/**/*.tsx",
     "example/**/*.vue"
-, "shims-vue.d.ts"  ],
+, "shims-vue.d.ts", "src/views/test2.jsx"  ],
   "exclude": ["node_modules"],
   "files": ["src/shims-vue.d.ts"]
 }

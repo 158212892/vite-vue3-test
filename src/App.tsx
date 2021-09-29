@@ -1,14 +1,23 @@
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
+import { RouterView } from 'vue-router';
 import App from './App.vue';
+
+import DefaultLayout from './layouts/DefaultLayout.vue';
+import MainLayout from './layouts/MainLayout.vue';
 /*写法1*/
 export default defineComponent({
+  components: {
+    DefaultLayout,
+    MainLayout,
+  },
   setup: () => {
-    return {};
+    return { layout: ref() };
   },
   render() {
     // console.log(this);
 
-    return <App />;
+    return this.layout !== undefined ? this.layout : <DefaultLayout></DefaultLayout>;
+    // return <RouterView />;
   },
 });
 

@@ -1,9 +1,11 @@
 // import index from '@/views/index.vue'
-import index from '@/views/index'
+import index from '@/views/index';
 
-export default [{
+export default [
+  
+  {
     name: 'index',
-    path: '/',
+    path: '/index',
     // alias:['/index'],
     // redirect: to => {
     //     // 方法接收目标路由作为参数
@@ -16,15 +18,16 @@ export default [{
     //     }
     // },
     // component: index,
-    components: { //命名视图
-        default: index,
-        // a:()=>import('../../view/test.vue'),
-        // b:()=>import('../../view/error/404.vue'),
+    components: {
+      //命名视图
+      default: index,
+      a: () => import('../../views/test1'),
+      b: () => import('../../views/test2'),
     },
     // props:true, //布尔模式
     // props: { default: true, sidebar: false }, //命名视图
     props: {
-        msg: import.meta.env.VITE_APP_TITLE
+      msg: import.meta.env.VITE_APP_TITLE,
     }, //静态对象模式
     // props: route => ({ msg: route.query.msg }),
     meta: {},
@@ -33,23 +36,25 @@ export default [{
     // }, (to, from, next) => {
     //     next();
     // }],
-    children: [{
-            name: 'test',
-            path: '/:pathMatch(\\d+)',
-            // alias:'',
-            // redirect: '/',
-            component: () => import('../../views/test1.vue'),
-            props: true,
-            meta: {}
-        },
-        {
-            name: 'test1',
-            path: '/:pathMatch([^\\d]\\w)',
-            // alias:'',
-            // redirect: '/',
-            component: () => import('../../views/test2'),
-            props: true,
-            meta: {}
-        },
-    ]
-}, ]
+    children: [
+      {
+        name: 'test',
+        path: '/:pathMatch(\\d+)',
+        // alias:'',
+        // redirect: '/',
+        component: () => import('../../views/test1'),
+        props: true,
+        meta: {},
+      },
+      {
+        name: 'test1',
+        path: '/:pathMatch([^\\d]\\w)',
+        // alias:'',
+        // redirect: '/',
+        component: () => import('../../views/test2'),
+        props: true,
+        meta: {},
+      },
+    ],
+  },
+];

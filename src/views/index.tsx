@@ -39,7 +39,6 @@ import './index.scss';
 //静态引入
 // import HelloWorld from '@/views/components/HelloWorld.vue';
 //异步引入
-const HelloWorld = defineAsyncComponent(() => import('./components/HelloWorld.vue'));
 export default defineComponent({
   name: 'index',
   props: [],
@@ -56,16 +55,20 @@ export default defineComponent({
       return (
         <>
           <div>
-            <Suspense>
+            {/* <Suspense>
               {{
                 fallback: () => (
                   <div>
                     <strong>加载中。。。</strong>
                   </div>
                 ),
-                default: () => <HelloWorld />,
+                default: () => (
+                  <>
+                    <RouterView name="a"></RouterView> <RouterView name="b"></RouterView>
+                  </>
+                ),
               }}
-            </Suspense>
+            </Suspense> */}
             <RouterView>
               {{
                 default: ({ Component, route }) => (
@@ -75,21 +78,19 @@ export default defineComponent({
                 ),
               }}
             </RouterView>
-            <RouterView name="a"></RouterView>
-            <RouterView name="b"></RouterView>
+
             <RouterLink to="/22">click me to go with number</RouterLink>
             <br />
-            <RouterLink to="/bb">click me to go with cap</RouterLink>
             <br />
-            {/* <RouterLink custom to="/bb">
+            <RouterLink custom to="/bb">
               {{
                 default: ({ href, route, navigate, isActive, isExactActive }) => (
                   <a class={isActive ? 'active' : ''} href={href}>
-                    {route.fullPath}
+                    {'click me to go with cap' + route.fullPath}
                   </a>
                 ),
               }}
-            </RouterLink> */}
+            </RouterLink>
           </div>
         </>
       );
