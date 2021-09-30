@@ -5,7 +5,7 @@ export default [
   
   {
     name: 'index',
-    path: '/index',
+    path: '/',
     // alias:['/index'],
     // redirect: to => {
     //     // 方法接收目标路由作为参数
