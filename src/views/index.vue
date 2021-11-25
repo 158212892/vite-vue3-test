@@ -1,6 +1,7 @@
 <template>
   <div>
     <HelloWorld />
+    <test2/>
     <router-view v-slot="{ Component }">
       <transition name="fade">
         <component :is="Component" />
@@ -21,6 +22,7 @@ export default {
 </script>
 <script setup>
 import HelloWorld from "@/components/HelloWorld.vue";
+import  test2 from "./test2"
 
 import {
   ref,

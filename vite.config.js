@@ -2,6 +2,7 @@ import {
   defineConfig
 } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import vueJsx from '@vitejs/plugin-vue-jsx'
 // import styleImport from 'vite-plugin-style-import';
 // import viteCompression from 'vite-plugin-compression';
 
@@ -90,7 +91,11 @@ export default async ({
         injectData: {
           title: env.VITE_APP_TITLE,
         },
+
       }),
+      vueJsx({
+        // options are passed on to @vue/babel-plugin-jsx
+      })
       // styleImport({
       //   // css样式按需加载
       //   libs: [{
