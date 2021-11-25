@@ -1,27 +1,18 @@
-import {
-  defineConfig
-} from 'vite';
-import vue from '@vitejs/plugin-vue';
-import vueJsx from '@vitejs/plugin-vue-jsx'
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import vueJsx from "@vitejs/plugin-vue-jsx";
 // import styleImport from 'vite-plugin-style-import';
 // import viteCompression from 'vite-plugin-compression';
 
-const path = require('path');
+const path = require("path");
 
-//config使用环境变量 
-import {
-  loadEnv
-} from 'vite';
+//config使用环境变量
+import { loadEnv } from "vite";
 
 //HTML 内容插入
-import {
-  injectHtml
-} from 'vite-plugin-html';
+import { injectHtml } from "vite-plugin-html";
 
-export default async ({
-  command,
-  mode
-}) => {
+export default async ({ command, mode }) => {
   const env = loadEnv(mode, process.cwd());
   // const data = await asyncFunction()
   return defineConfig({
@@ -34,22 +25,22 @@ export default async ({
       terserOptions: {
         compress: {
           drop_console: true,
-          drop_debugger: true
-        }
+          drop_debugger: true,
+        },
       },
       rollupOptions: {
         output: {
-          assetFileNames: 'css/[name].[hash].css',
-          chunkFileNames: 'js/[name].[hash].js',
-          entryFileNames: 'js/[name].[hash].js'
-        }
-      }
+          assetFileNames: "css/[name].[hash].css",
+          chunkFileNames: "js/[name].[hash].js",
+          entryFileNames: "js/[name].[hash].js",
+        },
+      },
     },
     server: {
-      host: '0.0.0.0', // 默认为localhost
+      host: "0.0.0.0", // 默认为localhost
       port: 3000, // 端口号
       open: true, // 是否自动打开浏览器
-      base: './', // 生产环境路径
+      base: "./", // 生产环境路径
       strictPort: true,
       optimizeDeps: {
         // include: ['axios', 'element-plus'] // 引入第三方插件
@@ -59,12 +50,13 @@ export default async ({
         // '/api': { //代理器中设置/api,项目中请求路径为/api的替换为target
         [env.VITE_APP_BASE_API]: {
           // target: 'http://172.16.22.133/prod-api/', // 后端服务实际地址
-          target: 'http://127.0.0.1:3000', // 后端服务实际地址 本机
+          target: "http://127.0.0.1:3000", // 后端服务实际地址 本机
           changeOrigin: true,
           // rewrite: (path) => path.replace(/^\/api/, '')
-          rewrite: (path) => path.replace(new RegExp('^\\' + [env.VITE_APP_BASE_API]), '')
+          rewrite: (path) =>
+            path.replace(new RegExp("^\\" + [env.VITE_APP_BASE_API]), ""),
         },
-      }
+      },
     },
     // publicDir: './src/assets', //作为静态资源服务的文件夹。该目录中的文件在开发期间在 / 处提供，并在构建期间复制到 outDir 的根目录
     // ssr: {
@@ -74,19 +66,21 @@ export default async ({
     // },
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, 'src') // 设置 `@` 指向 `src` 目录
-      }
+        "@": path.resolve(__dirname, "src"), // 设置 `@` 指向 `src` 目录
+      },
     },
     css: {
       preprocessorOptions: {
         scss: {
           modifyVars: {},
-          javascriptEnabled: true
-        }
-      }
+          javascriptEnabled: true,
+        },
+      },
     },
     plugins: [
-      vue(),
+      vue({
+        include: [/\.vue$/, /\.md$/],
+      }),
       injectHtml({
         injectData: {
           title: env.VITE_APP_TITLE,
@@ -95,7 +89,9 @@ export default async ({
       }),
       vueJsx({
         // options are passed on to @vue/babel-plugin-jsx
-      })
+        mergeProps: false,
+        enableObjectSlots: false,
+      }),
       // styleImport({
       //   // css样式按需加载
       //   libs: [{
@@ -119,6 +115,6 @@ export default async ({
       //   algorithm: 'gzip',
       //   ext: '.gz'
       // })
-    ]
-  })
-}
+    ],
+  });
+};
