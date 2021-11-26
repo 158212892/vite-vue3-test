@@ -1,6 +1,9 @@
 import { defineConfig, loadEnv /*config使用环境变量*/ } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
+
+import Components from 'unplugin-vue-components/vite';
+import { AntDesignVueResolver, ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 //HTML 内容插入
 import { injectHtml, minifyHtml } from 'vite-plugin-html';
 
@@ -9,9 +12,8 @@ import { injectHtml, minifyHtml } from 'vite-plugin-html';
 
 const path = require('path');
 
-export default async ({ command, mode }) => {
+export default ({ command, mode }) => {
   const env = loadEnv(mode, process.cwd());
-  // const data = await asyncFunction()
   return defineConfig({
     build: {
       // outDir: "./dist", //打包后的文件目录 默认 dist
@@ -95,6 +97,18 @@ export default async ({ command, mode }) => {
         injectData: {
           title: env.VITE_APP_TITLE,
         },
+      }),
+      Components({
+        /* ... */
+
+        // `customComponentsResolvers` has renamed to `resolver`
+        resolvers: [AntDesignVueResolver(), ElementPlusResolver()],
+
+        // `globalComponentsDeclaration` has renamed to `dts`
+        dts: true,
+
+        // `customLoaderMatcher` is depreacted, use `include` instead
+        include: [/\.vue$/, /\.vue\?vue/, /\.md$/, /\.jsx$/, /\.tsx$/],
       }),
       // styleImport({
       //   // css样式按需加载

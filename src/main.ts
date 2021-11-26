@@ -7,8 +7,8 @@ import router from "./router";
 import store from "./store";
 
 /* AntdUI*/
-import Antd from "ant-design-vue";
-import "ant-design-vue/dist/antd.css";
+// import Antd from "ant-design-vue";
+// import "ant-design-vue/dist/antd.css";
 
 /* bootstrap*/
 import 'bootstrap/dist/css/bootstrap.css'
@@ -19,6 +19,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import 'normalize.css'
 
 const app = createApp(App);
-app.use(Antd).use(store).use(router).mount("#app");
+// app.use(Antd).use(store).use(router).mount("#app");
+app.use(store).use(router).mount("#app");
 
 console.log("env", import.meta.env);

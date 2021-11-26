@@ -42,6 +42,7 @@ const test1 = defineComponent((props, context) => {
       <div>
         <div>{props.pathMatch}</div>
         <a-table dataSource={dataSource} columns={columns} />
+        <el-button>button</el-button>
       </div>
     );
   };
