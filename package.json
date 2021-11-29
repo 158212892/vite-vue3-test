@@ -13,6 +13,7 @@
     "core-js": "^3.19.1",
     "element-plus": "^1.2.0-beta.3",
     "js-cookie": "^3.0.1",
+    "lodash": "^4.17.21",
     "marked": "^4.0.5",
     "normalize.css": "^8.0.1",
     "umi-request": "^1.4.0",

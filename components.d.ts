@@ -6,6 +6,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     401: typeof import('./src/components/error/401.vue')['default']
     404: typeof import('./src/components/error/404.vue')['default']
+    AButton: typeof import('ant-design-vue/es')['Button']
     AInputSearch: typeof import('ant-design-vue/es')['InputSearch']
     AppLink: typeof import('./src/components/AppLink.vue')['default']
     ATable: typeof import('ant-design-vue/es')['Table']

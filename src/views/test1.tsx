@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue';
 
-import './index.scss';
+import styles from './test1.module.scss';
 
 const test1 = defineComponent((props, context) => {
   // console.log('setup');
@@ -19,6 +19,10 @@ const test1 = defineComponent((props, context) => {
       address: '西湖区湖底公园1号',
     },
   ];
+
+  const getImageUrl = name => {
+    return new URL(`../assets/${name}`, import.meta.url).href;
+  };
 
   const columns = [
     {
@@ -40,7 +44,8 @@ const test1 = defineComponent((props, context) => {
   return () => {
     return (
       <div>
-        <div>{props.pathMatch}</div>
+        <div class={styles.cssTest1}>{props.pathMatch}</div>
+        <a-button type="primary">Primary</a-button>
         <a-table dataSource={dataSource} columns={columns} />
         <el-button>button</el-button>
       </div>

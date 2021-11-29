@@ -15,10 +15,12 @@
     "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
-      "src/*": ["src/*"]
+      "src/*": ["src/*"],
+      "@": ["./src"],
+      "@/*": ["./src/*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
-    "types": ["vite/client"] 
+    "types": ["vite/client"]
   },
   "include": [
     "src/**/*.ts",
@@ -26,8 +28,10 @@
     "src/**/*.vue",
     "example/**/*.ts",
     "example/**/*.tsx",
-    "example/**/*.vue"
-, "shims-vue.d.ts", "src/views/test2.jsx"  ],
+    "example/**/*.vue",
+    "shims-vue.d.ts",
+    "src/views/test2.jsx"
+  ],
   "exclude": ["node_modules"],
   "files": ["src/shims-vue.d.ts"]
 }
