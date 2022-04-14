@@ -1,16 +1,22 @@
 import { defineConfig, loadEnv /*config使用环境变量*/ } from 'vite';
+import path from 'path'
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
-
-import Components from 'unplugin-vue-components/vite';
-import { AntDesignVueResolver, ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 //HTML 内容插入
-import { injectHtml, minifyHtml } from 'vite-plugin-html';
+import { createHtmlPlugin } from 'vite-plugin-html'
+// 自动按需引入ref、reactive等api，包括'vue', "vue-router", "vuex", "@vueuse/core"
+import AutoImport from 'unplugin-auto-import/vite'
+// 自动按需引入UI库、公共组件等模板组件 默认"/src/components/"下的组件不需要手动导入
+import Components from 'unplugin-vue-components/vite'
+import { AntDesignVueResolver, ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+// 自动按需引入icones图标 @see:https://icones.netlify.app
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
 
 // import styleImport from 'vite-plugin-style-import';
 // import viteCompression from 'vite-plugin-compression';
 
-const path = require('path');
+const pathSrc = path.resolve(__dirname, 'src')
 
 export default ({ command, mode }) => {
   const env = loadEnv(mode, process.cwd());
@@ -21,12 +27,7 @@ export default ({ command, mode }) => {
       // assetsInlineLimit: 4096, //小于此阈值的导入或引用资源将内联为 base64 编码，以避免额外的 http 请求。设置为 0 可以完全禁用此项。 默认 4096
       // sourcemap: false,  //默认 false
       // 去除console
-      terserOptions: {
-        compress: {
-          drop_console: true,
-          drop_debugger: true,
-        },
-      },
+      
       rollupOptions: {
         output: {
           assetFileNames: 'css/[name].[hash].css',
@@ -65,10 +66,10 @@ export default ({ command, mode }) => {
     // },
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, 'src'), // 设置 `@` 指向 `src` 目录
-        '~@': path.resolve('src'),
-        '~component': path.resolve('src/components'),
-        '~config': path.resolve('config'),
+        '@': pathSrc, // 设置 `@` 指向 `src` 目录
+        '~@': pathSrc,
+        '~components': path.resolve(pathSrc, 'components'),
+        '~config': path.resolve(pathSrc, 'config'),
       },
     },
     css: {
@@ -90,25 +91,55 @@ export default ({ command, mode }) => {
       },
     },
     plugins: [
-      vue(),
-      vueJsx(),
-      minifyHtml(),
-      injectHtml({
-        injectData: {
-          title: env.VITE_APP_TITLE,
+      vue({
+        include: [/\.vue$/, /\.md$/],
+      }),
+      vueJsx({
+        // options are passed on to @vue/babel-plugin-jsx
+        mergeProps: false,
+        enableObjectSlots: false,
+      }),
+      createHtmlPlugin({
+        minify: true,
+        /**
+         * After writing entry here, you will not need to add script tags in `index.html`, the original tags need to be deleted
+         * @default src/main.ts
+         */
+        // entry: "src/main.ts",
+        /**
+         * If you want to store `index.html` in the specified folder, you can modify it, otherwise no configuration is required
+         * @default index.html
+         */
+        // template: "public/index.html",
+
+        /**
+         * Data that needs to be injected into the index.html ejs template
+         */
+        inject: {
+          data: {
+            title: env.VITE_APP_TITLE,
+            // injectScript: `<script src="./inject.js"></script>`,
+          },
         },
       }),
+      AutoImport({
+        imports: ['vue', "vue-router", "vuex", "@vueuse/core",],
+        resolvers: [IconsResolver(), AntDesignVueResolver(), ElementPlusResolver(),],
+        dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
+      }),
       Components({
-        /* ... */
-
-        // `customComponentsResolvers` has renamed to `resolver`
-        resolvers: [AntDesignVueResolver(), ElementPlusResolver()],
-
-        // `globalComponentsDeclaration` has renamed to `dts`
-        dts: true,
-
+        // 指定组件位置，默认是src/components
+        // dirs: ['src/components'],
+        // `customComponentsResolvers` has renamed to `resolver`  ui库解析器
+        resolvers: [IconsResolver(), AntDesignVueResolver(), ElementPlusResolver()],
+        extensions: ['vue', "jsx"],
+        // `globalComponentsDeclaration` has renamed to `dts` 配置文件生成位置
+        dts: path.resolve(pathSrc, 'components.d.ts'),
         // `customLoaderMatcher` is depreacted, use `include` instead
         include: [/\.vue$/, /\.vue\?vue/, /\.md$/, /\.jsx$/, /\.tsx$/],
+      }),
+      Icons({
+        autoInstall: true, compiler: 'vue3'
       }),
       // styleImport({
       //   // css样式按需加载

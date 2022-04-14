@@ -6,9 +6,24 @@ const delay = (function() {
 	}
 })()
 
+const debounce = function(fn, delay) {
+    let timer = null
+    const that = this
+    return function() {
+        const param = arguments
+        if (timer) {
+            window.clearTimeout(timer)
+        }
+        timer = window.setTimeout(function() {
+            fn.apply(that, param)
+        }, delay)
+    }
+}
+
 
 export {
-	delay
+	delay,
+	debounce
 };
 
 

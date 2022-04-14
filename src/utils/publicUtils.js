@@ -422,6 +422,43 @@ const filesDownLoad = function (list) {
   }
 };
 
+export const bufferFileDownload = (
+  buffer,
+  fileName,
+  type = "charset=utf-8"
+) => {
+  /* eslint-disable */
+  var blob = new Blob([buffer], {
+    type
+  });
+  var a = document.createElement("a");
+  var url = window.URL.createObjectURL(blob);
+  a.href = url;
+  a.download = fileName;
+  var body = document.getElementsByTagName("body")[0];
+  body.appendChild(a);
+  a.click();
+  body.removeChild(a);
+  window.URL.revokeObjectURL(url);
+};
+
+/**
+ * Buffer下载文件
+ * @param {String} url
+ * @param {String} fileName
+ */
+export const urlFileDownload = (url, fileName) => {
+  var a = document.createElement("a");
+  a.href = url;
+  a.target = "_blank";
+  console.log("fileName", fileName);
+  a.download = fileName;
+  console.log("a", a);
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+};
+
 //中文汉字 ——> 数字
 const strChangeNum = function (chnStr) {
   var chnNumChar = {
@@ -487,6 +524,80 @@ const strChangeNum = function (chnStr) {
   return rtn + section;
 };
 
+/**
+ * @description 多维数组对象递归添加disabled属性  el-ca
+ * @param {Array} data: 数据来源
+ * @param {number} num: 存在则禁用指定层级* *最大禁用层级
+ */
+ export const setDisable = (data = [], num = [],) => {
+
+  const fun = (data, num, count) => {
+
+    if (Array.isArray(num)) {
+      if (!num.length) return data;
+      else {
+        count++;
+        data.forEach((v) => {
+          (num.indexOf(count - 1) !== -1 ? v.disabled = true : null);
+          if (v.children && v.children.length) fun(v.children, num, count);
+        });
+      }
+
+    }
+    else if (typeof (num) === 'number') {
+      if (count > num || !num) return data;
+      else {
+        count++;
+        data.forEach((v) => {
+          v.disabled = true
+          if (v.children && v.children.length) fun(v.children, num, count)
+        });
+      }
+    }
+    return data;
+  }
+
+  var count = 1/*计数*/
+  return fun(data, num, count)
+};
+
+/** 格式化坐标轴 */
+export const formmatAxisVal = (val) => {
+  let letter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+  let x = 0;
+  let y = 0;
+
+  let index = 0;
+  for (let i in val) {
+    if (letter.includes(val[i])) {
+      if (i == 0) {
+        x = letter.indexOf(val[i]);
+      } else {
+        x = i * 26 + letter.indexOf(val[i]);
+      };
+      index++
+    };
+  };
+  y = +(val.substring(index, val.length)) - 1;
+
+  return {
+    x,
+    y
+  }
+};
+
+/** 匹配两个字符串拥有相同字符的数量 */
+export  const findMatch = (str1, str2) => {
+  let num = 0;
+  for (let i = 0; i < str1.length; i++) {
+      if (str2.indexOf(str1[i]) !== -1) {
+          num++;
+      }
+  }
+  return num;
+};
+
 export default {
   regUid,
   regName,
@@ -495,7 +606,6 @@ export default {
   regFixedPhone,
   regCheckNum,
   regEmail,
-  object_dede,
   getImgToBase64,
   dataURLtoFile,
   regAir,

@@ -1,0 +1,14 @@
+.onPreview {
+  .el-input.is-disabled .el-input__inner {
+    background-color: transparent;
+    border:0;
+    color: var(--el-text-color);
+    cursor: auto;
+    text-align: center;
+    padding: 0;
+    box-shadow: none;
+  }
+  .el-cascader .el-input .icon-arrow-down,.el-select .el-input .el-select__caret.el-icon,.el-icon{
+      display: none;
+  }
+}
