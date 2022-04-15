@@ -8,6 +8,7 @@ declare module '@vue/runtime-core' {
     404: typeof import('./components/error/404.vue')['default']
     AppLink: typeof import('./components/AppLink.vue')['default']
     Breadcrumb: typeof import('./components/breadcrumb.vue')['default']
+    DefaultSiderBar: typeof import('./components/Public/Sidebars/DefaultSiderBar.tsx')['default']
     Heads: typeof import('./components/Heads.vue')['default']
     JHoverBtn: typeof import('./components/JHoverBtn.vue')['default']
     LeftNav: typeof import('./components/nav/leftNav.vue')['default']
@@ -20,12 +21,14 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     Select: typeof import('./components/Select/index.vue')['default']
     Suspense: typeof import('./components/Suspense.vue')['default']
-    Table: typeof import('./components/table/Table.vue')['default']
+    Table: typeof import('./components/table/index.vue')['default']
+    TableFilter: typeof import('./components/TableFilter/index.vue')['default']
     TableFormRow: typeof import('./components/table/TableFormRow.jsx')['default']
     Tags: typeof import('./components/nav/Tags.vue')['default']
     ToolBar: typeof import('./components/toolBar.vue')['default']
     TopNav: typeof import('./components/nav/topNav.vue')['default']
     Ueditor: typeof import('./components/Ueditor/index.vue')['default']
+    Upload: typeof import('./components/Upload/index.vue')['default']
   }
 }
 

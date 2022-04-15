@@ -1,27 +1,9 @@
-import {
-  createStore
-} from 'vuex'
+import { createPinia } from 'pinia';
 
-//数据持久化
-// import persistedState from 'vuex-persistedstate'
+const store = createPinia();
 
-import mutation from "./mutation"
-import action from "./action"
+export { store };
 
-const modulesFiles =
-  import.meta.globEager('./modules/*.js');
-const modules = Object
-  .keys(modulesFiles)
-  .reduce((pre, k) => ({
-    ...pre,
-    [k.replace(/\.\/modules\/|\.js/g, "")]: modulesFiles[k].default
-  }), {});
-
-export default createStore({
-  // state,
-  // getters,
-  mutation,
-  action,
-  modules,
-  // plugins: [persistedState()]
-})
+// 因为 pinia的实现也是通过vue的各种api（ref/reactive/computed等）
+// 所以，不要求一定要在Vue上挂载注册，可以随便在组件中使用，组件外使用也有对应方案
+// 不过，app.use(store) 可以把store实例挂载到Vue上使用

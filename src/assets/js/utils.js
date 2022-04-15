@@ -1,4 +1,4 @@
-import {Message,MessageBox} from 'element-ui';
+import {Message,MessageBox} from 'element-plus';
 export default {
 /**
  * 存储sessionStorage

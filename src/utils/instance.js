@@ -1,7 +1,7 @@
 import axios from "axios";
 // import QueryString from "qs";
 
-// import { Notification, MessageBox, Message } from 'element-ui'
+// import { Notification, MessageBox, Message } from 'element-plus'
 // import store from '@/store'
 // import { getToken } from '@/utils/auth'
 import errorCode from '@/utils/errorCode'

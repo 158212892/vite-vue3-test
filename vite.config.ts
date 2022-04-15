@@ -1,33 +1,32 @@
-import { defineConfig, loadEnv /*config使用环境变量*/ } from 'vite';
-import path from 'path'
+import { defineConfig, loadEnv /*config使用环境变量*/, UserConfig, ConfigEnv } from 'vite';
+import path from 'path';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 //HTML 内容插入
-import { createHtmlPlugin } from 'vite-plugin-html'
+import { createHtmlPlugin } from 'vite-plugin-html';
 // 自动按需引入ref、reactive等api，包括'vue', "vue-router", "vuex", "@vueuse/core"
-import AutoImport from 'unplugin-auto-import/vite'
+import AutoImport from 'unplugin-auto-import/vite';
 // 自动按需引入UI库、公共组件等模板组件 默认"/src/components/"下的组件不需要手动导入
-import Components from 'unplugin-vue-components/vite'
-import { AntDesignVueResolver, ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite';
+import { AntDesignVueResolver, ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 // 自动按需引入icones图标 @see:https://icones.netlify.app
-import Icons from 'unplugin-icons/vite'
-import IconsResolver from 'unplugin-icons/resolver'
+import Icons from 'unplugin-icons/vite';
+import IconsResolver from 'unplugin-icons/resolver';
 
 // import styleImport from 'vite-plugin-style-import';
 // import viteCompression from 'vite-plugin-compression';
 
-const pathSrc = path.resolve(__dirname, 'src')
+const pathSrc = path.resolve(__dirname, 'src');
 
-export default ({ command, mode }) => {
+export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
   const env = loadEnv(mode, process.cwd());
-  return defineConfig({
+  return {
     build: {
       // outDir: "./dist", //打包后的文件目录 默认 dist
       // assetsDir: "assets", //指定生成静态资源的存放路径 默认 assets（相对于 build.outDir）
       // assetsInlineLimit: 4096, //小于此阈值的导入或引用资源将内联为 base64 编码，以避免额外的 http 请求。设置为 0 可以完全禁用此项。 默认 4096
       // sourcemap: false,  //默认 false
-      // 去除console
-      
+      // target: 'es2015',
       rollupOptions: {
         output: {
           assetFileNames: 'css/[name].[hash].css',
@@ -40,6 +39,7 @@ export default ({ command, mode }) => {
       host: '0.0.0.0', // 默认为localhost
       port: 3000, // 端口号
       open: true, // 是否自动打开浏览器
+      cors: false, // 类型： boolean | CorsOptions 为开发服务器配置 CORS。默认启用并允许任何源
       base: './', // 生产环境路径
       strictPort: true,
 
@@ -80,7 +80,7 @@ export default ({ command, mode }) => {
         },
         // postcss: {},
         modules: {
-          scopeBehaviour: "local",
+          scopeBehaviour: 'local',
           // generateScopedName: "[name]__[local]___[hash:base64:5]",
           // hashPrefix: "prefix",
           /**
@@ -123,8 +123,8 @@ export default ({ command, mode }) => {
         },
       }),
       AutoImport({
-        imports: ['vue', "vue-router", "vuex", "@vueuse/core",],
-        resolvers: [IconsResolver(), AntDesignVueResolver(), ElementPlusResolver(),],
+        imports: ['vue', 'vue-router', 'vuex', '@vueuse/core'],
+        resolvers: [IconsResolver(), AntDesignVueResolver(), ElementPlusResolver()],
         dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
       }),
       Components({
@@ -132,14 +132,13 @@ export default ({ command, mode }) => {
         // dirs: ['src/components'],
         // `customComponentsResolvers` has renamed to `resolver`  ui库解析器
         resolvers: [IconsResolver(), AntDesignVueResolver(), ElementPlusResolver()],
-        extensions: ['vue', "jsx"],
+        extensions: ['vue', 'jsx', 'tsx'],
         // `globalComponentsDeclaration` has renamed to `dts` 配置文件生成位置
         dts: path.resolve(pathSrc, 'components.d.ts'),
-        // `customLoaderMatcher` is depreacted, use `include` instead
-        include: [/\.vue$/, /\.vue\?vue/, /\.md$/, /\.jsx$/, /\.tsx$/],
       }),
       Icons({
-        autoInstall: true, compiler: 'vue3'
+        autoInstall: true,
+        compiler: 'vue3',
       }),
       // styleImport({
       //   // css样式按需加载
@@ -165,5 +164,5 @@ export default ({ command, mode }) => {
       //   ext: '.gz'
       // })
     ],
-  });
-};
+  };
+});
