@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia';
-import { store } from '@/store';
+import store from '@/store';
 import { ReqParams } from '@/api/user/model';
 import fetchApi from '@/api/user';
 // import { encryptByDES } from '@/utils/crypto';
 import { getToken, setToken, removeToken } from '@/utils/auth';
-import { router } from '@/router';
+import router from '@/router';
 
 interface UserState {
   token: string;

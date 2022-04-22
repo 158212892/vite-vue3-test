@@ -3,7 +3,7 @@
  * @description 系统设置-账户模块
  */
 import { defineStore } from 'pinia';
-import { store } from '@/store';
+import store from '@/store';
 import fetchApi from '@/api/sys/account';
 import { ReqAccount, ResAccount } from '@/api/sys/account/model';
 import { encryptByDES } from '@/utils/crypto';

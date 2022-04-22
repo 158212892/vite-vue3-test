@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { store } from '@/store';
+import store from '@/store';
 import fetchApi from '@/api/user';
 import { RouteRecordRaw } from 'vue-router';
 import constantRoutes, { accessRoutes, publicRoutes } from '@/router/router.config';

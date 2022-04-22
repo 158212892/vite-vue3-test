@@ -4,3 +4,5 @@ export interface ResData<T> {
   message: string;
   result: T;
 }
+
+export interface ReqData<T> {}

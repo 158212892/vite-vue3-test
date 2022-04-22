@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { store } from '@/store';
+import store from '@/store';
 import fetchApi from '@/api/home';
 import { ResInfoList } from '@/api/home/model';
 

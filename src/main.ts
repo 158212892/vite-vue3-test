@@ -4,7 +4,7 @@ import App from "./App";
 // import './registerServiceWorker'
 /* vue全家桶 */
 import router from "./router";
-import {store} from "./store";
+import store from "./store";
 import { setupGlobDirectives } from './directives';
 import './router/permission';
 

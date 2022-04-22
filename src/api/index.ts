@@ -1,7 +1,8 @@
-import request from "../utils/instance.js";
+import request from '../utils/instance.js';
+import { ReqData } from './global';
 
-export function temp(params) {
-    return request.get('/src/assets/json/data.json', {
-        params
-    })
+export function temp(params: ReqData<unknown>) {
+  return request.get('/src/assets/json/data.json', {
+    params,
+  });
 }

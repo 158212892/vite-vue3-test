@@ -12,14 +12,15 @@ import { AntDesignVueResolver, ElementPlusResolver } from 'unplugin-vue-componen
 // 自动按需引入icones图标 @see:https://icones.netlify.app
 import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
+import { viteMockServe } from 'vite-plugin-mock';
 
 // import styleImport from 'vite-plugin-style-import';
 // import viteCompression from 'vite-plugin-compression';
 
-const pathSrc = path.resolve(__dirname, 'src');
-
 export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
   const env = loadEnv(mode, process.cwd());
+  const pathSrc = path.resolve(__dirname, 'src');
+  let prodMock = true;
   return {
     build: {
       // outDir: "./dist", //打包后的文件目录 默认 dist
@@ -162,7 +163,18 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
       //   threshold: 10240,
       //   algorithm: 'gzip',
       //   ext: '.gz'
-      // })
+      // }),
+      viteMockServe({
+        // default
+        mockPath: 'mock',
+        localEnabled: command === 'serve',
+        prodEnabled: command !== 'serve' && prodMock,
+        injectCode: `
+       import { setupProdMockServer } from '../mock/_createProdMockServer';
+ 
+       setupProdMockServer();
+       `,
+      }),
     ],
   };
 });
