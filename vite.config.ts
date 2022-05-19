@@ -38,7 +38,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
     },
     server: {
       host: '0.0.0.0', // 默认为localhost
-      port: 3000, // 端口号
+      port: 30002, // 端口号
       open: true, // 是否自动打开浏览器
       cors: false, // 类型： boolean | CorsOptions 为开发服务器配置 CORS。默认启用并允许任何源
       base: './', // 生产环境路径
@@ -164,17 +164,17 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
       //   algorithm: 'gzip',
       //   ext: '.gz'
       // }),
-      viteMockServe({
-        // default
-        mockPath: 'mock',
-        localEnabled: command === 'serve',
-        prodEnabled: command !== 'serve' && prodMock,
-        injectCode: `
-       import { setupProdMockServer } from '../mock/_createProdMockServer';
+      // viteMockServe({
+      //   // default
+      //   mockPath: 'mock',
+      //   localEnabled: command === 'serve',
+      //   prodEnabled: command !== 'serve' && prodMock,
+      //   injectCode: `
+      //  import { setupProdMockServer } from '../mock/_createProdMockServer';
  
-       setupProdMockServer();
-       `,
-      }),
+      //  setupProdMockServer();
+      //  `,
+      // }),
     ],
   };
 });
